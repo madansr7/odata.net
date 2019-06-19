@@ -22,17 +22,12 @@ namespace Microsoft.OData.UriParser
     public sealed class SelectToken : QueryToken
     {
         /// <summary>
-        /// The properties according to which to select the results.
-        /// </summary>
-        private readonly IEnumerable<PathSegmentToken> properties;
-
-        /// <summary>
         /// Create a SelectToken given the property-accesses of the select query.
         /// </summary>
         /// <param name="properties">The properties according to which to select the results.</param>
         public SelectToken(IEnumerable<PathSegmentToken> properties)
         {
-            this.properties = properties != null ? new ReadOnlyEnumerableForUriParser<PathSegmentToken>(properties)
+            Properties = properties != null ? new ReadOnlyEnumerableForUriParser<PathSegmentToken>(properties)
                                                  : new ReadOnlyEnumerableForUriParser<PathSegmentToken>(new List<PathSegmentToken>());
         }
 
@@ -49,7 +44,7 @@ namespace Microsoft.OData.UriParser
         /// </summary>
         public IEnumerable<PathSegmentToken> Properties
         {
-            get { return this.properties; }
+            get; internal set;
         }
 
         /// <summary>

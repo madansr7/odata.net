@@ -4,9 +4,7 @@
 // </copyright>
 //---------------------------------------------------------------------
 
-using System.Collections.Generic;
 using System.Linq;
-using ODataErrorStrings = Microsoft.OData.Strings;
 
 namespace Microsoft.OData.UriParser
 {
@@ -22,13 +20,11 @@ namespace Microsoft.OData.UriParser
         /// <returns>Normalized SelectToken</returns>
         public static SelectToken NormalizeSelectTree(SelectToken treeToNormalize)
         {
-            PathReverser pathReverser = new PathReverser();
-            List<PathSegmentToken> invertedPaths = (from property in treeToNormalize.Properties
-                                                    select property.Accept(pathReverser)).ToList();
+            treeToNormalize.Properties = treeToNormalize.Properties.Select(p => p.Reverse()).ToList();
 
             // to normalize a select token we just need to invert its paths, so that
             // we match the ordering on an ExpandToken.
-            return new SelectToken(invertedPaths);
+            return treeToNormalize;
         }
     }
 }

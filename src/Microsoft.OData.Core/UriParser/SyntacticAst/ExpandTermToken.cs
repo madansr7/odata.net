@@ -21,66 +21,6 @@ namespace Microsoft.OData.UriParser
     public sealed class ExpandTermToken : QueryToken
     {
         /// <summary>
-        /// The nav prop path for this ExpandTerm
-        /// </summary>
-        private readonly PathSegmentToken pathToNavigationProp;
-
-        /// <summary>
-        /// the filter option for this expand term
-        /// </summary>
-        private readonly QueryToken filterOption;
-
-        /// <summary>
-        /// the order by options for this expand term
-        /// </summary>
-        private readonly IEnumerable<OrderByToken> orderByOptions;
-
-        /// <summary>
-        /// the top option for this expand term
-        /// </summary>
-        private readonly long? topOption;
-
-        /// <summary>
-        /// the skip option for this expand term.
-        /// </summary>
-        private readonly long? skipOption;
-
-        /// <summary>
-        /// the query count option for this expand term.
-        /// </summary>
-        private readonly bool? countQueryOption;
-
-        /// <summary>
-        /// the levels option for this expand term
-        /// </summary>
-        private readonly long? levelsOption;
-
-        /// <summary>
-        /// the search option for this expand term
-        /// </summary>
-        private readonly QueryToken searchOption;
-
-        /// <summary>
-        /// the select option for this expand term.
-        /// </summary>
-        private readonly SelectToken selectOption;
-
-        /// <summary>
-        /// the compute option for this expand term.
-        /// </summary>
-        private readonly ComputeToken computeOption;
-
-        /// <summary>
-        /// the apply options for this expand term
-        /// </summary>
-        private readonly IEnumerable<QueryToken> applyOptions;
-
-        /// <summary>
-        /// the expand option for this expand term.
-        /// </summary>
-        private readonly ExpandToken expandOption;
-
-        /// <summary>
         /// Create an expand term token using only a property
         /// </summary>
         /// <param name="pathToNavigationProp">the path to the navigation property</param>
@@ -179,115 +119,79 @@ namespace Microsoft.OData.UriParser
         {
             ExceptionUtils.CheckArgumentNotNull(pathToNavigationProp, "property");
 
-            this.pathToNavigationProp = pathToNavigationProp;
-            this.filterOption = filterOption;
-            this.orderByOptions = orderByOptions;
-            this.topOption = topOption;
-            this.skipOption = skipOption;
-            this.countQueryOption = countQueryOption;
-            this.levelsOption = levelsOption;
-            this.searchOption = searchOption;
-            this.selectOption = selectOption;
-            this.computeOption = computeOption;
-            this.expandOption = expandOption;
-            this.applyOptions = applyOptions;
+            this.PathToNavigationProp = pathToNavigationProp;
+            this.FilterOption = filterOption;
+            this.OrderByOptions = orderByOptions;
+            this.TopOption = topOption;
+            this.SkipOption = skipOption;
+            this.CountQueryOption = countQueryOption;
+            this.LevelsOption = levelsOption;
+            this.SearchOption = searchOption;
+            this.SelectOption = selectOption;
+            this.ComputeOption = computeOption;
+            this.ExpandOption = expandOption;
+            this.ApplyOptions = applyOptions;
         }
 
         /// <summary>
         /// the nav property for this expand term
         /// </summary>
-        public PathSegmentToken PathToNavigationProp
-        {
-            get { return this.pathToNavigationProp; }
-        }
+        public PathSegmentToken PathToNavigationProp { get; internal set; }
 
         /// <summary>
         /// The filter option for this expand term.
         /// </summary>
-        public QueryToken FilterOption
-        {
-            get { return this.filterOption; }
-        }
+        public QueryToken FilterOption { get; private set; }
 
         /// <summary>
         /// the orderby options for this expand term.
         /// </summary>
-        public IEnumerable<OrderByToken> OrderByOptions
-        {
-            get { return this.orderByOptions; }
-        }
+        public IEnumerable<OrderByToken> OrderByOptions { get; private set; }
 
         /// <summary>
         /// the top option for this expand term.
         /// </summary>
-        public long? TopOption
-        {
-            get { return this.topOption; }
-        }
+        public long? TopOption { get; private set; }
 
         /// <summary>
         /// the skip option for this expand term.
         /// </summary>
-        public long? SkipOption
-        {
-            get { return this.skipOption; }
-        }
+        public long? SkipOption { get; private set; }
 
         /// <summary>
         /// the query count option for this expand term.
         /// </summary>
-        public bool? CountQueryOption
-        {
-            get { return this.countQueryOption; }
-        }
+        public bool? CountQueryOption { get; private set; }
 
         /// <summary>
         /// the levels option for this expand term.
         /// </summary>
-        public long? LevelsOption
-        {
-            get { return this.levelsOption; }
-        }
+        public long? LevelsOption { get; private set; }
 
         /// <summary>
         /// the search option for this expand term.
         /// </summary>
-        public QueryToken SearchOption
-        {
-            get { return this.searchOption; }
-        }
+        public QueryToken SearchOption { get; private set; }
 
         /// <summary>
         /// the select option for this expand term.
         /// </summary>
-        public SelectToken SelectOption
-        {
-            get { return this.selectOption; }
-        }
+        public SelectToken SelectOption { get; internal set; }
 
         /// <summary>
         /// the compute option for this expand term.
         /// </summary>
-        public ComputeToken ComputeOption
-        {
-            get { return this.computeOption; }
-        }
+        public ComputeToken ComputeOption { get; private set; }
 
         /// <summary>
         /// the apply options for this expand term.
         /// </summary>
-        public IEnumerable<QueryToken> ApplyOptions
-        {
-            get { return this.applyOptions; }
-        }
+        public IEnumerable<QueryToken> ApplyOptions { get; private set; }
 
         /// <summary>
         /// the expand option for this expand term.
         /// </summary>
-        public ExpandToken ExpandOption
-        {
-            get { return this.expandOption; }
-        }
+        public ExpandToken ExpandOption { get; internal set; }
 
         /// <summary>
         /// the kind of this expand term.

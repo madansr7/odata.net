@@ -40,34 +40,23 @@ namespace Microsoft.OData.UriParser
         public ExpandToken NormalizePaths(ExpandToken treeToInvert)
         {
             // iterate through each expand term token, and reverse the tree in its path property
-            List<ExpandTermToken> updatedTerms = new List<ExpandTermToken>();
             foreach (ExpandTermToken term in treeToInvert.ExpandTerms)
             {
-                PathReverser pathReverser = new PathReverser();
-                PathSegmentToken reversedPath = term.PathToNavigationProp.Accept(pathReverser);
+                term.PathToNavigationProp = term.PathToNavigationProp.Reverse();
 
                 // we also need to call the select token normalizer for this level to reverse the select paths
-                SelectToken newSelectToken = term.SelectOption;
                 if (term.SelectOption != null)
                 {
-                    newSelectToken = SelectTreeNormalizer.NormalizeSelectTree(term.SelectOption);
+                    term.SelectOption = SelectTreeNormalizer.NormalizeSelectTree(term.SelectOption);
                 }
 
-                ExpandToken subExpandTree;
                 if (term.ExpandOption != null)
                 {
-                    subExpandTree = this.NormalizePaths(term.ExpandOption);
+                    term.ExpandOption = this.NormalizePaths(term.ExpandOption);
                 }
-                else
-                {
-                    subExpandTree = null;
-                }
-
-                ExpandTermToken newTerm = new ExpandTermToken(reversedPath, term.FilterOption, term.OrderByOptions, term.TopOption, term.SkipOption, term.CountQueryOption, term.LevelsOption, term.SearchOption, newSelectToken, subExpandTree, term.ComputeOption, term.ApplyOptions);
-                updatedTerms.Add(newTerm);
             }
 
-            return new ExpandToken(updatedTerms);
+            return treeToInvert;
         }
 
         /// <summary>

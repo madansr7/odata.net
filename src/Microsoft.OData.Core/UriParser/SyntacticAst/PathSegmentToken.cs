@@ -36,6 +36,7 @@ namespace Microsoft.OData.UriParser
         public PathSegmentToken NextToken
         {
             get { return this.nextToken; }
+            internal set { this.nextToken = value; }
         }
 
         /// <summary>
@@ -67,14 +68,5 @@ namespace Microsoft.OData.UriParser
         /// </summary>
         /// <param name="visitor">An implementation of the visitor interface.</param>
         public abstract void Accept(IPathSegmentTokenVisitor visitor);
-
-        /// <summary>
-        /// internal setter for the next token.
-        /// </summary>
-        /// <param name="nextTokenIn">the next token to set.</param>
-        internal void SetNextToken(PathSegmentToken nextTokenIn)
-        {
-            this.nextToken = nextTokenIn;
-        }
     }
 }
